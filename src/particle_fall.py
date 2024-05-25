@@ -5,6 +5,7 @@ def simulate_particle_fall(mass, diameter, initial_velocity, height):
   g = 9.8  # Acceleration due to gravity (m/s^2)
   rho_air = 1.2  # Density of air (kg/m^3)
   viscosity = 1.8e-5  # Viscosity of air (kg/(m*s))
+  step_time = 0.01  # Time step for simulation (s)
 
   # Calculate forces
   gravity_force = mass * g
@@ -21,11 +22,11 @@ def simulate_particle_fall(mass, diameter, initial_velocity, height):
 
   while position >= 0:
     # Update position and velocity
-    position += velocity * time + 0.5 * acceleration * time**2
-    velocity += acceleration * time
+    position -= velocity * step_time + 0.5 * acceleration * step_time**2
+    velocity += acceleration * step_time
 
     # Update time
-    time += 0.01  # Time step of 0.01 seconds
+    time += step_time # Time step of 0.01 seconds
     
     # Update forces and acceleration
     drag_force = 6 * np.pi * (diameter/2) * viscosity * velocity
@@ -34,9 +35,9 @@ def simulate_particle_fall(mass, diameter, initial_velocity, height):
   return time
 
 # Example usage
-mass = 0.01  # Mass of the particle (kg)
+'''mass = 0.01  # Mass of the particle (kg)
 diameter = 0.001  # Diameter of the particle (m)
 initial_velocity = 0  # Initial velocity of the particle (m/s)
 
-fall_time = simulate_particle_fall(mass, diameter, initial_velocity)
-print("Particle fall time:", fall_time, "seconds")
+fall_time = simulate_particle_fall(mass, diameter, initial_velocity, 1)
+print("Particle fall time:", fall_time, "seconds")'''
