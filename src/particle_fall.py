@@ -115,7 +115,7 @@ def simulate_particle_fall3(mass, diameter, max_time,  x_position, x_velocity, y
     x_velocity += x_acceleration * step_time
     z_velocity += z_acceleration * step_time
     
-    while(x_velocity >=0 and z_velocity >= 0 and step_time < 0.01):
+    while(x_velocity >=0 and step_time < 0.01):
       position[0] = p0
       position[1] = p1
       x_velocity = x0
@@ -126,7 +126,7 @@ def simulate_particle_fall3(mass, diameter, max_time,  x_position, x_velocity, y
       x_velocity += x_acceleration * step_time
       z_velocity += z_acceleration * step_time
       
-    while(x_velocity <0 or z_velocity <0):
+    while(x_velocity <0):
       position[0] = p0
       position[1] = p1
       x_velocity = x0

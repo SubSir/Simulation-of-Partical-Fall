@@ -8,16 +8,17 @@ import imageio.v2 as imageio
 import os
 
 diameter = 0.001  # m
-density = 10  # kg/m^3
+density = 1000  # kg/m^3
 heights = np.arange(0, 1, 0.1)  # m
 initial_velocity = 0  # m/s
-max_time = 1  # s
+max_time = 4  # s
 mass = density * (np.pi * diameter**3) / 6
 
 x_velocitys = [0.5, 5, 25, 50]
+x_max = [2, 7, 13, 13]
 time_sequence = np.arange(0, max_time, 0.1)
 
-for ii in range(2,len(x_velocitys)):
+for ii in range(len(x_velocitys)):
   x_velocity = x_velocitys[ii]
   filenames = []
   for index in range(len(time_sequence)):
@@ -50,7 +51,7 @@ for ii in range(2,len(x_velocitys)):
     # 使用scatter方法绘制3D散点图
     ax.scatter(answer_x, answer_y, answer_z)
 
-    ax.set_xlim(0, 1)
+    ax.set_xlim(0, x_max[ii])
     ax.set_ylim(0, 1)
     ax.set_zlim(0, 1)
 
