@@ -4,7 +4,7 @@ import multiple_partical_fall
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-import imageio
+import imageio.v2 as imageio
 import os
 
 diameter = 0.001  # m
