@@ -8,7 +8,7 @@ import imageio.v2 as imageio
 import os
 
 diameter = 0.001  # m
-density = 1000  # kg/m^3
+density = 10  # kg/m^3
 heights = np.arange(0, 1, 0.1)  # m
 initial_velocity = 0  # m/s
 max_time = 4  # s
@@ -31,10 +31,13 @@ for index in range(len(time_sequence)):
     mass = density * (np.pi * diameter**3) / 6
     
     # Call the simulate_particle_fall function
-    time, position = particle_fall.simulate_particle_fall2(mass, diameter, max_time, 0, 0, 0, 0, height, 0)
     
     for i in heights:
+      diameter = 0.001
       for j in heights:
+        time, position = particle_fall.simulate_particle_fall2(mass, diameter, max_time, 0, 0, 0, 0, height, 0)
+        diameter += 0.01
+        mass = density * (np.pi * diameter**3) / 6
         for k in range(len(position)):
           if time[k] >= ask_time:
             answer_x.append(i)
@@ -71,5 +74,3 @@ with imageio.get_writer('task2.gif', mode='I') as writer:
 # 删除图像文件
 for filename in filenames:
     os.remove(filename)
-
-diameter += 0.01

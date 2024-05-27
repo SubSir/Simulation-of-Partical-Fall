@@ -70,4 +70,3 @@ for ii in range(len(x_velocitys)):
   for filename in filenames:
       os.remove(filename)
   
-  diameter += 0.01
