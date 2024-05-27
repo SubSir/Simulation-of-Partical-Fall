@@ -69,3 +69,5 @@ for ii in range(len(x_velocitys)):
   # 删除图像文件
   for filename in filenames:
       os.remove(filename)
+  
+  diameter += 0.01
