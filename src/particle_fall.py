@@ -39,47 +39,7 @@ def simulate_particle_fall(mass, diameter, initial_velocity, height):
 
   return time
 
-def simulate_particle_fall2(mass, diameter, initial_velocity, height, max_time):
-  step_time = 0.01  # Time step for simulation (s), change it when you find the velocity is too large
-  # Calculate forces
-  gravity_force = mass * g
-  buoyancy_force = (4/3) * np.pi * (diameter/2)**3 * g * rho_air
-  drag_force = max(6 * np.pi * (diameter/2) * viscosity * initial_velocity,
-                   0.4* 0.5 * rho_air * (initial_velocity**2) * np.pi * (diameter/2)**2)
-  
-  # Calculate acceleration
-  acceleration = (gravity_force - buoyancy_force - drag_force) / mass
-
-  # Simulate particle fall
-  time = 0
-  position = height
-  velocity = initial_velocity
-  
-  times = []
-  positions = []
-
-  while max_time >= time:
-    times.append(time)
-    positions.append(position)
-    
-    # Update position and velocity
-    position -= velocity * step_time + 0.5 * acceleration * step_time**2
-    velocity += acceleration * step_time
-    
-    if position < 0:
-      velocity = -velocity
-      
-    # Update time
-    time += step_time # Time step of 0.01 seconds
-    
-    # Update forces and acceleration
-    drag_force = max(6 * np.pi * (diameter/2) * viscosity * velocity,
-                     0.4* 0.5 * rho_air * (velocity**2) * np.pi * (diameter/2)**2)
-    acceleration = (gravity_force - buoyancy_force - drag_force) / mass
-
-  return times, positions
-
-def simulate_particle_fall3(mass, diameter, max_time,  x_position, x_velocity, y_position,y_velocity, z_position, z_velocity):
+def simulate_particle_fall2(mass, diameter, max_time,  x_position, x_velocity, y_position,y_velocity, z_position, z_velocity):
 
   step_time = 0.01  # Time step for simulation (s), change it when you find the velocity is too large
   # Calculate forces
@@ -90,8 +50,12 @@ def simulate_particle_fall3(mass, diameter, max_time,  x_position, x_velocity, y
                      0.4* 0.5 * rho_air * (velocity**2) * np.pi * (diameter/2)**2)
 
   # Calculate acceleration
-  z_acceleration = (gravity_force - buoyancy_force - drag_force * z_velocity / velocity) / mass
-  x_acceleration = - drag_force * x_velocity / velocity / mass
+  if velocity == 0:
+    z_acceleration = (gravity_force - buoyancy_force - drag_force) / mass
+    x_acceleration = 0
+  else:
+    z_acceleration = (gravity_force - buoyancy_force - drag_force * z_velocity / velocity) / mass
+    x_acceleration = - drag_force * x_velocity / velocity / mass
 
   # Simulate particle fall
   time = 0

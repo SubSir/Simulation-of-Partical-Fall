@@ -8,10 +8,10 @@ import imageio.v2 as imageio
 import os
 
 diameter = 0.001  # m
-density = 10  # kg/m^3
+density = 1000  # kg/m^3
 heights = np.arange(0, 1, 0.1)  # m
 initial_velocity = 0  # m/s
-max_time = 6  # s
+max_time = 4  # s
 
 time_sequence = np.arange(0, max_time, 0.1)
 
@@ -31,13 +31,7 @@ for index in range(len(time_sequence)):
     mass = density * (np.pi * diameter**3) / 6
     
     # Call the simulate_particle_fall function
-    time, position = particle_fall.simulate_particle_fall2(mass, diameter, initial_velocity, height, max_time)
-    
-    for i in heights:
-      for j in heights:
-        for t in position:
-          times.append(time)
-          positions.append([i, j, t])
+    time, position = particle_fall.simulate_particle_fall2(mass, diameter, max_time, 0, 0, 0, 0, height, 0)
     
     for i in heights:
       for j in heights:
@@ -45,7 +39,7 @@ for index in range(len(time_sequence)):
           if time[k] >= ask_time:
             answer_x.append(i)
             answer_y.append(j)
-            answer_z.append(position[k])
+            answer_z.append(position[k][2])
             break
           
   #multiple_partical_fall.number_density(times, positions, 0.5, [0.5, 0.5, 0.5])
@@ -69,7 +63,7 @@ for index in range(len(time_sequence)):
   plt.close()
 
 # 使用图像序列创建GIF
-with imageio.get_writer('mygif.gif', mode='I') as writer:
+with imageio.get_writer('task2.gif', mode='I') as writer:
     for filename in filenames:
         image = imageio.imread(filename)
         writer.append_data(image)
@@ -77,3 +71,5 @@ with imageio.get_writer('mygif.gif', mode='I') as writer:
 # 删除图像文件
 for filename in filenames:
     os.remove(filename)
+
+diameter += 0.01

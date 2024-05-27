@@ -34,7 +34,7 @@ for ii in range(len(x_velocitys)):
     for height in heights:
       for i in heights:
         for j in heights:
-          time, position = particle_fall.simulate_particle_fall3(mass, diameter, max_time, i, x_velocity, j, 0, height, 0)
+          time, position = particle_fall.simulate_particle_fall2(mass, diameter, max_time, i, x_velocity, j, 0, height, 0)
           for t in range(len(position)):
             if (time[t] >= ask_time):
               answer_x.append(position[t][0])
