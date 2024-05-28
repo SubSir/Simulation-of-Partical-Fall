@@ -16,7 +16,7 @@ mass = density * (np.pi * diameter**3) / 6
 
 x_velocitys = [0.5, 5, 25, 50]
 x_max = [2, 7, 13, 13]
-time_sequence = np.arange(0, max_time, 0.1)
+time_sequence = np.arange(0, max_time, 1)
 
 for ii in range(len(x_velocitys)):
   x_velocity = x_velocitys[ii]
@@ -55,11 +55,11 @@ for ii in range(len(x_velocitys)):
     ax.set_ylim(0, 1)
     ax.set_zlim(0, 1)
 
-    filename = f'frame_{index}.png'
+    filename = f'frame_{(ii + 1) * 100 + index}.png'
     plt.savefig(filename)
     filenames.append(filename)
     plt.close()
-
+'''
   # 使用图像序列创建GIF
   with imageio.get_writer('task3_' + str(ii) + '.gif', mode='I') as writer:
       for filename in filenames:
@@ -69,4 +69,4 @@ for ii in range(len(x_velocitys)):
   # 删除图像文件
   for filename in filenames:
       os.remove(filename)
-  
+  '''

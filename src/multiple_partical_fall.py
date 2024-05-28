@@ -7,7 +7,7 @@ def distance(position1, position2):
   return ((position1[0] - position2[0])**2 + (position1[1] - position2[1])**2 + (position1[2] - position2[2])**2) ** 0.5
 
 def number_density(times, positions, time, position):
-  min_distance = 0.01
+  min_distance = 0.1
   
   pos= 0
   for i in range(len(times)):
@@ -17,7 +17,24 @@ def number_density(times, positions, time, position):
     
   count = 0
   
-  for i in range(positions[pos]):
+  for i in range(len(positions[pos])):
     if distance(positions[pos][i], position) <= min_distance:
       count += 1
   return count / (4/3 * np.pi * min_distance**3)
+
+def number_density(positions, position):
+  min_distance = 0.01
+  
+  count = 0
+  
+  for i in positions:
+    if distance(i, position) <= min_distance:
+      count += 1
+  
+  while count == 0:
+    min_distance += 0.01
+    for i in positions:
+      if distance(i, position) <= min_distance:
+        count += 1
+        
+  return count / (4/3 * np.pi * (min_distance * 2)**3)

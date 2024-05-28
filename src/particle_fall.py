@@ -113,8 +113,12 @@ def simulate_particle_fall2(mass, diameter, max_time,  x_position, x_velocity, y
     drag_force = max(6 * np.pi * (diameter/2) * viscosity * velocity,
                      0.4* 0.5 * rho_air * (velocity**2) * np.pi * (diameter/2)**2)
 
-    z_acceleration = (gravity_force - buoyancy_force - drag_force * z_velocity / velocity) / mass
-    x_acceleration = - drag_force * x_velocity / velocity / mass
+    if velocity == 0:
+      z_acceleration = (gravity_force - buoyancy_force - drag_force) / mass
+      x_acceleration = 0
+    else:
+      z_acceleration = (gravity_force - buoyancy_force - drag_force * z_velocity / velocity) / mass
+      x_acceleration = - drag_force * x_velocity / velocity / mass
 
   return times, positions
 
